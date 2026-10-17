@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>邱邱邱 · 个人主页</title>
+<meta name="description" content="在读学生 · 自学 AI 应用开发 · 主用 Python。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper:      oklch(97.5% 0.015 85);
+    --card:       oklch(99.5% 0.005 85);
+    --ink:        oklch(23% 0.02 75);
+    --muted:      oklch(50% 0.02 75);
+    --line:       oklch(90% 0.012 85);
+    --accent:     oklch(56% 0.17 255);   /* 青蓝 */
+    --accent-warm:oklch(74% 0.16 62);    /* 琥珀 */
+    --accent-coral:oklch(64% 0.20 22);   /* 珊瑚 */
+    --ink-deep:   oklch(20% 0.03 265);   /* 深色区块底 */
+    --radius: 20px;
+    --maxw: 1040px;
+    --shadow: 0 1px 2px oklch(20% 0.02 265 / 0.05), 0 12px 30px -12px oklch(20% 0.02 265 / 0.16);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+    font-size: clamp(16px, 1.05vw + 12px, 18px);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-wrap: pretty;
+  }
+  .display { font-family: "Space Grotesk", sans-serif; letter-spacing: -0.02em; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* header */
+  header {
+    position: sticky; top: 0; z-index: 20;
+    backdrop-filter: saturate(1.1) blur(10px);
+    background: oklch(97.5% 0.015 85 / 0.72);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { font-weight: 700; font-size: 18px; }
+  .brand b { color: var(--accent-coral); }
+  .links { display: flex; gap: 22px; }
+  .links a { color: var(--muted); text-decoration: none; font-size: 15px; transition: color .2s; }
+  .links a:hover { color: var(--ink); }
+  @media (max-width: 560px){ .links { display:none; } }
+
+  /* hero */
+  .hero { position: relative; overflow: hidden; padding: 96px 0 84px; }
+  .blob { position:absolute; border-radius:50%; filter: blur(70px); opacity:.5; pointer-events:none; }
+  .blob.b1 { width:420px; height:420px; right:-80px; top:-60px; background: radial-gradient(circle at 30% 30%, var(--accent), transparent 70%); }
+  .blob.b2 { width:360px; height:360px; left:-120px; top:120px; background: radial-gradient(circle at 60% 40%, var(--accent-coral), transparent 70%); opacity:.4; }
+  .blob.b3 { width:300px; height:300px; right:120px; bottom:-120px; background: radial-gradient(circle, var(--accent-warm), transparent 70%); opacity:.35; }
+  .hero .wrap { position: relative; }
+  .eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--accent);
+             background: oklch(56% 0.17 255 / .1); padding:6px 12px; border-radius:999px; margin-bottom:22px; }
+  .eyebrow::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px oklch(56% 0.17 255 / .2); }
+  h1 { font-size: clamp(44px, 8vw, 84px); font-weight:700; line-height:1.02; margin-bottom:18px; }
+  h1 .grad { background: linear-gradient(100deg, var(--accent), var(--accent-coral) 60%, var(--accent-warm)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .lede { font-size: clamp(18px, 2.2vw, 22px); color: var(--muted); max-width: 42ch; }
+  .cta { display:flex; gap:14px; margin-top:34px; flex-wrap:wrap; }
+  .btn { text-decoration:none; font-weight:600; font-size:15px; padding:13px 22px; border-radius:12px; transition: transform .15s, box-shadow .2s, background .2s; }
+  .btn.solid { background: var(--ink); color: var(--paper); box-shadow: var(--shadow); }
+  .btn.solid:hover { transform: translateY(-2px); box-shadow: 0 16px 36px -14px oklch(20% 0.03 265 / .4); }
+  .btn.ghost { border:1px solid var(--line); color:var(--ink); background: var(--card); }
+  .btn.ghost:hover { transform: translateY(-2px); border-color: var(--accent); }
+
+  section { padding: 56px 0; border-top:1px solid var(--line); }
+  .kicker { font-family:"Space Grotesk"; font-weight:600; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-coral); margin-bottom:14px; }
+  h2 { font-size: clamp(26px, 3.6vw, 36px); font-weight:700; margin-bottom:18px; }
+
+  /* skills */
+  .tags { display:flex; flex-wrap:wrap; gap:10px; }
+  .tag { font-weight:600; font-size:14px; padding:9px 15px; border-radius:999px; background:var(--card); border:1px solid var(--line); box-shadow:var(--shadow); transition: transform .15s, border-color .2s; }
+  .tag:hover { transform: translateY(-2px); }
+  .tag.py  { border-color: oklch(56% 0.17 255 / .5); color: var(--accent); }
+  .tag.ai  { border-color: oklch(64% 0.20 22 / .5);  color: var(--accent-coral); }
+  .tag.grow{ border-color: oklch(74% 0.16 62 / .6);  color: oklch(50% 0.12 62); }
+  .about-grid { display:grid; grid-template-columns: 1.4fr 1fr; gap:40px; align-items:start; }
+  @media (max-width:760px){ .about-grid{ grid-template-columns:1fr; gap:28px; } }
+  .muted { color:var(--muted); }
+
+  /* featured project */
+  .project { background: var(--ink-deep); color: oklch(96% 0.01 85); border-radius: var(--radius); padding: 34px; box-shadow: var(--shadow); position:relative; overflow:hidden; }
+  .project::after { content:""; position:absolute; inset:auto -40px -60px auto; width:240px; height:240px; border-radius:50%; background: radial-gradient(circle, oklch(64% 0.20 22 / .5), transparent 70%); filter: blur(30px); }
+  .project h3 { font-family:"Space Grotesk"; font-size: clamp(22px,3vw,28px); margin-bottom:10px; }
+  .project p { color: oklch(85% 0.02 85); max-width:50ch; position:relative; z-index:1; }
+  .chip { display:inline-block; margin-top:18px; font-size:13px; font-weight:600; padding:6px 12px; border-radius:8px; background: oklch(96% 0.01 85 / .1); color: oklch(96% 0.01 85); position:relative; z-index:1; }
+
+  /* contact */
+  .contact { text-align:center; padding:80px 0 90px; }
+  .contact h2 { font-size: clamp(28px,5vw,44px); }
+  .contact a.big { font-family:"Space Grotesk"; font-weight:600; font-size: clamp(18px,3vw,26px); color:var(--accent); text-decoration:none; border-bottom:2px solid oklch(56% 0.17 255 / .3); transition: border-color .2s; }
+  .contact a.big:hover { border-color: var(--accent); }
+
+  footer { border-top:1px solid var(--line); padding:26px 0; color:var(--muted); font-size:14px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  /* reveal */
+  .reveal { opacity:0; transform: translateY(18px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1; transform:none; transition:none;} html{scroll-behavior:auto;} }
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand display">邱邱<b>邱</b></div>
+      <nav class="links">
+        <a href="#about">关于</a>
+        <a href="#skills">技术栈</a>
+        <a href="#work">项目</a>
+        <a href="#contact">联系</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="top" style="border-top:none;">
+    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+    <div class="wrap">
+      <span class="eyebrow">在读学生 · 自学中</span>
+      <h1 class="display">你好，我是<br><span class="grad">邱邱邱</span></h1>
+      <p class="lede">正在自学 AI 应用开发，主用 Python。把想法变成能跑起来的小工具。</p>
+      <div class="cta">
+        <!-- ⚠️ 把 你的GitHub用户名 换成真实 ASCII 用户名（github.com/xxxxx 里那个） -->
+        <a class="btn solid" href="https://github.com/你的GitHub用户名" target="_blank" rel="noopener">GitHub →</a>
+        <a class="btn ghost" href="mailto:919178781313@qq.com">给我发邮件</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap about-grid">
+      <div class="reveal">
+        <div class="kicker">About</div>
+        <h2 class="display">关于我</h2>
+        <p class="muted">我是一名在读学生，靠自学走进 AI 应用开发这条路。喜欢写 Python，把日常里重复、麻烦的事情做成能自动运行的小脚本和小工具。目前是起步阶段，重点放在把基础打牢、做出真能用的东西。</p>
+      </div>
+      <div class="reveal" style="align-self:end">
+        <p class="muted" style="font-size:14px; line-height:1.8;">方向 · AI 应用 / 自动化<br>语言 · Python<br>状态 · 持续自学</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap reveal">
+      <div class="kicker">Stack</div>
+      <h2 class="display">技术栈</h2>
+      <div class="tags">
+        <span class="tag py">Python</span>
+        <span class="tag ai">AI 应用</span>
+        <span class="tag grow">自学中 · 自动化脚本</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap reveal">
+      <div class="kicker">Work</div>
+      <h2 class="display" style="margin-bottom:26px;">精选项目</h2>
+      <div class="project">
+        <h3>校园自动化脚本</h3>
+        <p>用 Python 写的校园应用自动化小工具，把每天都要手动重复的操作交给脚本处理，减少无意义的重复劳动。</p>
+        <span class="chip">Python · 自动化 · 定时任务</span>
+      </div>
+      <!-- 想放更多项目：复制上面整个 .project 块，或改成 2-3 列网格。别编造 star 数/用户数。 -->
+    </div>
+  </section>
+
+  <section id="contact" style="border-top:none;">
+    <div class="wrap contact reveal">
+      <div class="kicker" style="text-align:center;">Contact</div>
+      <h2 class="display">一起做点东西</h2>
+      <p class="muted" style="margin-bottom:22px;">想找我聊项目、合作，或者只是打个招呼，都可以。</p>
+      <a class="big" href="mailto:919178781313@qq.com">919178781313@qq.com</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;width:100%;">
+      <span class="display">邱邱邱 · 个人主页</span>
+      <span>© 2026 · 自学 AI 应用</span>
+    </div>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver((es) => {
+      es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
